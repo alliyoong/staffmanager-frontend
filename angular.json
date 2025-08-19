@@ -5,7 +5,29 @@
   "projects": {
     "staff_manager_frontend": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+              "skipTests": true
+            },
+            "@schematics/angular:service": {
+              "skipTests": true
+            },
+            "@schematics/angular:module": {
+              "skipTests": true
+            },
+            "@schematics/angular:class": {
+              "skipTests": true
+            },
+            "@schematics/angular:directive": {
+              "skipTests": true
+            },
+            "@schematics/angular:guard": {
+              "skipTests": true
+            },
+            "@schematics/angular:pipe": {
+              "skipTests": true
+            }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -16,13 +38,20 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {

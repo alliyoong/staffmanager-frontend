@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h3>Department List</h3>
+    <table class="table table-dark table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="text-warning">ID</th>
+                <th scope="col" class="text-warning">Name</th>
+                <th scope="col" class="text-warning">Description</th>
+                <th scope="col" class="text-warning">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(data of departmentList$ | async ; track data){
+            <tr>
+                <th scope="row">{{data.departmentId}}</th>
+                <td>{{data.departmentName}}</td>
+                <td>{{data.departmentDescription}}</td>
+                <td>
+                    <button class="btn btn-info" data-toggle="tooltip" title="Edit" (click)="openEdit(data)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" data-toggle="tooltip" title="Delete" (click)="openDelete(data)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+            @empty {
+            <tr>
+                <td colspan="3" class="text-center">No departments found</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<app-delete-department></app-delete-department>
+<app-edit-department></app-edit-department>

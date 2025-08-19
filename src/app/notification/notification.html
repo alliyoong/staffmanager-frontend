@@ -1,0 +1,8 @@
+@if(notificationService.notification$ | async; as notification){
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1200;">
+    <div class="alert alert-{{notification.type}} alert-dismissible fade show shadow" role="alert">
+      {{ notification.message }}
+      <button type="button" class="btn-close" (click)="notificationService.clear()"></button>
+    </div>
+  </div>
+}

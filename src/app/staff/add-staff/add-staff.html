@@ -1,0 +1,54 @@
+<div class="container p-50 m-50">
+    <div class="add-staff-header">
+        <h1>Create new staff page</h1>
+        <p>Please enter the information to create new staff</p>
+    </div>
+    <form [formGroup]="addStaffForm">
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="nameInput">Full Name</label>
+            <input type="text" class="form-control" id="nameInput" formControlName="name">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="emailInput">Email</label>
+            <input type="text" class="form-control" id="emailInput" formControlName="email">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="ssnInput">Social Security Number</label>
+            <input type="text" class="form-control" id="ssnInput" formControlName="socialSecurityNumber">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="phoneNumberInput">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="genderInput">Gender</label>
+            <input type="text" class="form-control" id="genderInput" formControlName="gender">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="dobInput">Date Of Birth</label>
+            <input type="text" class="form-control" id="dobInput" formControlName="dateOfBirth">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="joinDateInput">Join Date</label>
+            <input type="text" class="form-control" id="joinDateInput" formControlName="joinDate">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="departmentInput">Department</label>
+            <input type="text" class="form-control" id="departmentInput" formControlName="departmentId">
+        </div>
+        <div class="form-group mb-3">
+            <label class="text-info fw-bold" for="statusInput">Status</label>
+            <input type="text" class="form-control" id="statusInput" formControlName="status">
+        </div>
+    </form>
+    @if(!showLoading){
+        <button (click)="add()" [disabled]="addStaffForm.invalid || addStaffForm.pristine"
+            class="btn btn-lg btn-primary">
+            Create
+        </button>
+    }@else {
+        <div class="spinner-border text-primary" role="status">
+          <!-- <span class="sr-only">Loading...</span> -->
+        </div>
+    }
+</div>

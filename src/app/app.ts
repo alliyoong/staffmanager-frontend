@@ -1,9 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavigationBar } from './navigation-bar/navigation-bar';
+import { Notification } from './notification/notification';
+import { DeleteDepartment } from './department/delete-department/delete-department';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    NavigationBar,
+    Notification,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
