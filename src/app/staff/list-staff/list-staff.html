@@ -1,6 +1,9 @@
 <div class="container mt-4">
-<h3>Staff List</h3>
-@if(staffList$ | async; as page){
+  <h3>Staff List</h3>
+  @if(this.username){
+    <h5 class="text-success text-center">Welcome {{this.username}}</h5>
+  }
+  @if(staffList$ | async; as page){
   <table class="table table-striped table-bordered">
     <thead class="thead-light">
       <tr>
@@ -64,7 +67,7 @@
       </li>
     </ul>
   </nav>
-}
+  }
 </div>
 
 <app-delete-staff></app-delete-staff>

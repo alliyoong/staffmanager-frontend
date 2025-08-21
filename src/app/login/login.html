@@ -1,0 +1,27 @@
+<div class="container p-50 m-50">
+    <div class="login-header">
+        <h1>HRM Spring</h1>
+        <p>Login</p>
+    </div>
+    <form [formGroup]="loginForm">
+        <div class="form-group mb-3">
+            <label for="usernameInput">Username</label>
+            <input type="text" class="form-control" formControlName="username" id="usernameInput">
+        </div>
+        <div class="form-group mb-3">
+            <label for="passwordInput">Password</label>
+            <input type="password" class="form-control" formControlName="password" id="passwordInput">
+        </div>
+    </form>
+    @if(!showLoading){
+        <button (click)="login()" [disabled]="loginForm.invalid || loginForm.pristine"
+            class="btn btn-lg btn-primary">
+            Login
+        </button>
+    }@else {
+        <div class="spinner-border text-primary" role="status">
+          <!-- <span class="sr-only">Loading...</span> -->
+        </div>
+    }
+
+</div>

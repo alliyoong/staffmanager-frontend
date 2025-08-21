@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-view-staff-detail',
   imports: [],
-  templateUrl: './view-staff-detail.html',
-  styleUrl: './view-staff-detail.css'
+  templateUrl: './detail-staff.html',
+  styleUrl: './detail-staff.css'
 })
-export class ViewStaffDetail {
+export class DetailStaff {
 
 }

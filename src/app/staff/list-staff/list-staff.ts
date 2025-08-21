@@ -24,12 +24,17 @@ export class ListStaff {
   staffList$: Observable<Page<Staff>> = new Observable<Page<Staff>>();
   currentPage: number = 0;
   pageSize: number = 10;
+  username: string = '';
   // totalPages: number = 0;
 
   constructor(private _service: StaffCrudService, private _route: Router) {}
 
   ngOnInit(): void {
     this.loadStaff();
+    if (localStorage.getItem('app-user')) {
+      const user = JSON.parse(localStorage.getItem('app-user')!);
+      this.username = user.name;  
+    }
   }
   loadStaff(page: number = 0) {
     this.currentPage = page;
