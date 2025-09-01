@@ -1,0 +1,44 @@
+<!-- Modal -->
+<button type="button" #addAccountTrigger class="d-none" data-bs-toggle="modal" data-bs-target="#addAccountModal"></button>
+<div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel" data-bs-backdrop="static" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAccountModalLabel">Add Account</h5>
+        <button type="button" class="btn-close" routerLink="/staff" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="add-account-header">
+            <h1>Create account</h1>
+            <p>Please enter the information to create account</p>
+          </div>
+          <form [formGroup]="addAccountForm">
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="usernameInput">Username</label>
+              <input type="text" class="form-control" id="usernameInput" formControlName="username">
+            </div>
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="passwordInput">Email</label>
+              <input type="password" class="form-control" id="passwordInput" formControlName="password">
+            </div>
+          </form>
+          <div class="modal-footer">
+            @if(!showLoading){
+            <button type="button" (click)="addAccount()"
+              class="btn btn-lg btn-primary">
+                Create
+            </button>
+            <button type="button" class="btn btn-secondary" routerLink="/staff" data-bs-dismiss="modal">Cancel</button>
+            }@else {
+            <div class="spinner-border text-primary">
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

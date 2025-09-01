@@ -1,8 +1,36 @@
-<div class="row mt-4">
-  <div class="col-6 mx-auto">
-    <div class="d-flex align-items-center justify-content-evenly">
-      <button (click)="checkIn()" class="btn btn-primary">Check In</button>
-      <button (click)="checkOut()" class="btn btn-primary">Check Out</button>
+<div class="container p-50 m-50">
+  @if(attendance$ | async; as data){
+  <table class="table table-striped table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" class="text-warning">ID</th>
+        <th scope="col" class="text-warning">Check In Time</th>
+        <th scope="col" class="text-warning">Check Out Time</th>
+        <th scope="col" class="text-warning">Status</th>
+        <th scope="col" class="text-warning">Date</th>
+        <th scope="col" class="text-warning">Total Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{data.attendanceId}}</th>
+        <td>{{data.checkInTime}}</td>
+        <td>{{data.checkOutTime}}</td>
+        <td>{{data.attendanceStatus}}</td>
+        <td>{{data.workDate}}</td>
+        <td>{{data.totalHours}}</td>
+      </tr>
+    </tbody>
+  </table>
+  }@else {
+  <p>You haven't checked in today</p>
+  }
+  <div class="row mt-4">
+    <div class="col-6 mx-auto">
+      <div class="d-flex align-items-center justify-content-evenly">
+        <button (click)="checkIn()" class="btn btn-primary">Check In</button>
+        <button (click)="checkOut()" class="btn btn-primary">Check Out</button>
+      </div>
     </div>
   </div>
 </div>

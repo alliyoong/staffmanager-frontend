@@ -1,5 +1,9 @@
+import { Department } from "../../department/data/department";
+
 export interface Staff {
-    id: number;
+    accountId: number;
+    staffId: number;
+    department: Department;
     name: string;
     email: string;
     socialSecurityNumber: string;
@@ -7,5 +11,5 @@ export interface Staff {
     gender: string;
     dateOfBirth: Date;
     joinDate: Date;
-    status: string;
+    staffStatus: string;
 }

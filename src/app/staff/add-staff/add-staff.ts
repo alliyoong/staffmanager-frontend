@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StaffCrudService } from '../data/staff-crud-service';
 import { NotificationService } from '../../notification/notification-service';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { Department } from '../../department/data/department';
 
 @Component({
   selector: 'app-add-staff',
@@ -16,8 +17,12 @@ import { take } from 'rxjs';
 })
 export class AddStaff {
   addStaffForm!: FormGroup;
+  addAccountForm!: FormGroup;
   showLoading: boolean = false;
   hide: boolean = true;
+  departments$!: Observable<Department[]>;
+  status$!: Observable<string[]>;
+  gender$!: Observable<string[]>;
 
   constructor(
     private _service: StaffCrudService, 
@@ -35,35 +40,47 @@ export class AddStaff {
       dateOfBirth: new FormControl('', [Validators.required]),
       joinDate: new FormControl('', [Validators.required]),
       departmentId: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
+      staffStatus: new FormControl('', [Validators.required]),
     });
+
+    this.addAccountForm = this.formBuilder.group({
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
+    
+    this.departments$ = this._service.getDepartmentOptions();
+    this.status$ = this._service.getStatusOptions();
+    this.gender$ = this._service.getGenderOptions();
   }
 
   add(){
     this.showLoading = true;
-    const data = this.addStaffForm.getRawValue();
-    console.log(data);
+
+    const staffData = this.addStaffForm.getRawValue();
+    const accountData = this.addAccountForm.getRawValue();
+    const data = {...staffData, ...accountData};
+    console.log('final data: ', data);
+
     this._service.add(data).pipe(take(1)).subscribe({
-      next: res => { 
-         this.showLoading = false;
-         this.notiSertice.show('Staff added successfully', 'success');
-         this.resetForm();
+      next: res => {
+        this.showLoading = false;
+        this.notiSertice.show('Staff added successfully', 'success');
+        this.resetForm();
       },
       error: res => {
-         this.showLoading = false;
-         this.notiSertice.show(res.error.statusMessage, 'danger');
-         // this.resetForm();
+        this.showLoading = false;
+        this.notiSertice.show(res.error.statusMessage, 'danger');
+        // this.resetForm();
       },
       complete: () => this.showLoading = false
-    }
-    );
+    });
   }
 
   resetForm(): void{
-    this.addStaffForm.reset({
-      name:'',
-      description: '',
-    });
+    this.addStaffForm.reset();
     this.addStaffForm.markAsPristine();
+
+    this.addAccountForm.reset();
+    this.addAccountForm.markAsPristine();
   }
 }

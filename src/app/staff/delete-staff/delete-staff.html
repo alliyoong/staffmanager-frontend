@@ -1,12 +1,12 @@
 <!-- Modal -->
-<button type="button" #deleteModalTrigger class="d-none" data-bs-toggle="modal" data-bs-target="#deleteModal"></button>
+<button type="button" #deleteModalTrigger class="d-none" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-target="#deleteModal"></button>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">Delete Staff</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close" routerLink="/staff" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
       <div class="modal-body">

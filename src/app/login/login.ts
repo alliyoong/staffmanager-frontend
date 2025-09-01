@@ -41,11 +41,11 @@ export class Login {
   login(): void {
     this.showLoading = true;
     const data = this.loginForm.getRawValue();
-    console.log(data);
     this.authService.login(data).pipe(take(1)).subscribe({
       next: res => {
+        console.log(res);
         const token = res.headers.get(HeaderType.AUTHORIZATION).toString().substring(7);
-        const currentUser: Staff = res.body?.data.staff;
+        const currentUser: Staff = res.body?.data;
         console.log(currentUser);
         this.authService.setCurrentToken(token);
         this.authService.cacheUser(currentUser);

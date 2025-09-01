@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NotificationService } from '../../notification/notification-service';
 import { DepartmentCrudService } from '../data/department-crud-service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-edit-department',
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './edit-department.html',
   styleUrl: './edit-department.css'

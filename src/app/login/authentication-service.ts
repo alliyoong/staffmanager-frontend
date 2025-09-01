@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppHttpResponse } from '../app-http-response';
 import { HttpClient } from '@angular/common/http';
-import { Account } from './data/account';
+import { Account } from '../account/data/account';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Staff } from '../staff/data/staff';
 
@@ -10,10 +10,10 @@ import { Staff } from '../staff/data/staff';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseUrl: string = 'http://localhost:8088';
+  baseUrl: string = 'http://localhost:8088/api/auth';
   private loggedInUsername!: string | null;
   private accessToken!: string | null;
-  private currentAccount!: Staff;
+  private currentAccount!: Staff | null;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   login(data: any): Observable<any>{
@@ -22,7 +22,14 @@ export class AuthenticationService {
     });
   }
 
-  logOut(): void {}
+  logOut(): Observable<any> {
+    this.accessToken = null;
+    this.currentAccount = null;
+    localStorage.removeItem('app-user');
+    return this.http.post<AppHttpResponse>(`${this.baseUrl}/logout`, {}, {
+      observe: 'response'
+    })
+  }
   
   setCurrentToken(token: string): void {
     this.accessToken = token;
@@ -41,20 +48,20 @@ export class AuthenticationService {
     return null;
   }
 
-  mapMessAccountToUser(staff: Staff): Account {
-    let user: { [k: string]: any } = {};
-    let key: keyof Staff;
-    for (key in staff) {
-      if (key !== 'id') {
-        user = {
-          ...user,
-          [key]: staff[key]
-        }
-      }
-    }
-    user['userId'] = staff.id;
-    return user as Account;
-  }
+  // mapMessAccountToUser(staff: Staff): Account {
+  //   let user: { [k: string]: any } = {};
+  //   let key: keyof Staff;
+  //   for (key in staff) {
+  //     if (key !== 'staffId') {
+  //       user = {
+  //         ...user,
+  //         [key]: staff[key]
+  //       }
+  //     }
+  //   }
+  //   user['userId'] = staff.id;
+  //   return user as Account;
+  // }
 
   getCurrentToken(): string {
     return this.accessToken!;

@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { DeleteDepartment } from '../delete-department/delete-department';
 import { Router } from '@angular/router';
 import { EditDepartment } from '../edit-department/edit-department';
+import { SearchService } from '../../staff/data/search-service';
 
 @Component({
   selector: 'app-list-department',
@@ -24,7 +25,10 @@ export class ListDepartment implements OnInit{
   departmentList$: Observable<Department[]> = new Observable<Department[]>();
   isDeleteModalOpen: boolean = false;
 
-  constructor(private _service: DepartmentCrudService, private _route: Router) {}
+  constructor(
+    private _service: DepartmentCrudService, 
+    private _route: Router
+  ) {}
 
   ngOnInit(): void {
     this.departmentList$ = this._service.getList();

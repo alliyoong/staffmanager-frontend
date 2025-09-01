@@ -1,54 +1,99 @@
-<div class="container p-50 m-50">
-    <div class="add-staff-header">
-        <h1>Create new staff page</h1>
-        <p>Please enter the information to create new staff</p>
-    </div>
-    <form [formGroup]="addStaffForm">
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="nameInput">Full Name</label>
-            <input type="text" class="form-control" id="nameInput" formControlName="name">
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container border p-4 rounded shadow-sm">
+        <div class="add-staff-header">
+            <h1>Create new staff page</h1>
+            <p>Please enter the information to create new staff</p>
         </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="emailInput">Email</label>
-            <input type="text" class="form-control" id="emailInput" formControlName="email">
+        <form [formGroup]="addStaffForm">
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="nameInput">Full Name</label>
+                <input type="text" class="form-control" id="nameInput" formControlName="name">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="emailInput">Email</label>
+                <input type="text" class="form-control" id="emailInput" formControlName="email">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="ssnInput">Social Security Number</label>
+                <input type="text" class="form-control" id="ssnInput" formControlName="socialSecurityNumber">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="phoneNumberInput">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="genderInput">Gender</label>
+                <select class="form-select" id="genderInput" formControlName="gender" aria-label="gender select">
+                    @for(data of gender$ | async; track data){
+                    <option value="{{data}}">{{data}}</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="dobInput" class="text-info fw-bold">Date Of Birth</label>
+                <div class="col-5">
+                    <div class="input-group date" id="datepicker">
+                        <input type="date" formControlName="dateOfBirth" class="form-control" id="dobInput" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="joinDateInput" class="text-info fw-bold">Join Date</label>
+                <div class="col-5">
+                    <div class="input-group date" id="datepicker">
+                        <input type="date" formControlName="joinDate" class="form-control" id="joinDateInput" />
+                        <!-- <span class="input-group-append">
+                            <span class="input-group-text bg-light d-block">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="departmentInput">Department</label>
+                <select class="form-select" id="departmentInput" formControlName="departmentId"
+                    aria-label="department select">
+                    @for(data of departments$ | async; track data){
+                    <option value="{{data.departmentId}}">{{data.departmentName}}</option>
+                    }
+
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="statusInput">Status</label>
+                <select class="form-select" id="statusInput" formControlName="staffStatus" aria-label="status select">
+                    @for(data of status$ | async; track data){
+                    <option value="{{data}}">{{data}}</option>
+                    }
+                </select>
+            </div>
+        </form>
+        <!-- <div class="add-account-header">
+            <h1>Create account information</h1>
+            <p>Please enter the login information for new staff</p>
         </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="ssnInput">Social Security Number</label>
-            <input type="text" class="form-control" id="ssnInput" formControlName="socialSecurityNumber">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="phoneNumberInput">Phone Number</label>
-            <input type="text" class="form-control" id="phoneNumberInput" formControlName="phoneNumber">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="genderInput">Gender</label>
-            <input type="text" class="form-control" id="genderInput" formControlName="gender">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="dobInput">Date Of Birth</label>
-            <input type="text" class="form-control" id="dobInput" formControlName="dateOfBirth">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="joinDateInput">Join Date</label>
-            <input type="text" class="form-control" id="joinDateInput" formControlName="joinDate">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="departmentInput">Department</label>
-            <input type="text" class="form-control" id="departmentInput" formControlName="departmentId">
-        </div>
-        <div class="form-group mb-3">
-            <label class="text-info fw-bold" for="statusInput">Status</label>
-            <input type="text" class="form-control" id="statusInput" formControlName="status">
-        </div>
-    </form>
-    @if(!showLoading){
-        <button (click)="add()" [disabled]="addStaffForm.invalid || addStaffForm.pristine"
+
+        <form [formGroup]="addAccountForm">
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="usernameInput">User Name</label>
+                <input type="text" class="form-control" id="usernameInput" formControlName="username">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="password">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+            </div>
+        </form> -->
+        @if(!showLoading){
+        <button (click)="add()"
+            [disabled]="addStaffForm.invalid || addStaffForm.pristine || addAccountForm.invalid || addAccountForm.pristine"
             class="btn btn-lg btn-primary">
             Create
         </button>
-    }@else {
+        }@else {
         <div class="spinner-border text-primary" role="status">
-          <!-- <span class="sr-only">Loading...</span> -->
+            <!-- <span class="sr-only">Loading...</span> -->
         </div>
-    }
+        }
+    </div>
 </div>

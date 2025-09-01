@@ -3,12 +3,17 @@ import { provideRouter } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { jwtInterceptor } from './interceptor/jwt-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([
+        jwtInterceptor
+      ])
+    ),
     provideZonelessChangeDetection(),
     provideRouter(routes),
     importProvidersFrom(
@@ -22,14 +27,5 @@ export const appConfig: ApplicationConfig = {
         },
       })
     )
-    // provideJwt({
-    //   config: {
-    //         tokenGetter: () => {
-    //           return localStorage.getItem('token');
-    //         },
-    //         allowedDomains: ['localhost:8088'],
-    //         disallowedRoutes: ['/login'],
-    //       },
-    // })
   ],
 };
