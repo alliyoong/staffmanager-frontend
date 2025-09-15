@@ -33,27 +33,27 @@ export class StaffCrudService {
   }
 
   add(data: any): Observable<AppHttpResponse> {
-    return this.http.post<AppHttpResponse>('http://localhost:8088/api/auth/register', data);
+    return this.http.post<AppHttpResponse>(this.baseUrl, data);
   }
 
   update(data: any, id: string): Observable<AppHttpResponse> {
-    const url = `http://localhost:8088/api/auth/edit-account/${id}`;
+    const url = `${this.baseUrl}/${id}`;
     return this.http.put<AppHttpResponse>(url, data);
   }
 
-  updateAccount(data: any, id: string): Observable<AppHttpResponse> {
-    const url = `/${id}`;
-    return this.http.put<AppHttpResponse>(url, data);
-  }
+  // updateAccount(data: any, id: string): Observable<AppHttpResponse> {
+  //   const url = `/${id}`;
+  //   return this.http.put<AppHttpResponse>(url, data);
+  // }
 
   delete(id: string): Observable<AppHttpResponse> {
     return this.http.delete<AppHttpResponse>(`${this.baseUrl}/${id}`);
   }
   
   checkHasAccount(staffId: number): Observable<Account>{
-    return this.http.get<AppHttpResponse>(`${this.baseUrl}/check-has-account/${staffId}`)
+    return this.http.get<AppHttpResponse>(`http://localhost:8088/api/account/check-has-account/${staffId}`)
     .pipe(
-        tap(response => console.log('check if has account observable ', response)),
+        // tap(response => console.log('check if has account observable ', response)),
         map(response => response.data)
     );
   }

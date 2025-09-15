@@ -14,6 +14,7 @@ import { CheckInOut } from './attendance/check-in-out/check-in-out';
 import { Logout } from './logout/logout';
 import { Home } from './home/home';
 import { authenticationGuard } from './guard/authentication-guard';
+import { DayOffRequest } from './attendance/day-off-request/day-off-request';
 
 export const routes: Routes = [
 //   { path: 'register', component: RegisterComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'logout', component: Logout },
   { path: 'attendance', component: CheckInOut, canActivate: [authenticationGuard] },
+  { path: 'day-off-request', component: DayOffRequest, canActivate: [authenticationGuard] },
   {
     path: 'staff', component: ListStaff, children: [
       { path: 'edit/:staffId', component: EditStaff },

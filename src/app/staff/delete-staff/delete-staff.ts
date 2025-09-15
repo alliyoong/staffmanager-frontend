@@ -15,6 +15,7 @@ export class DeleteStaff {
   showLoading: boolean = false;
   staffId!: string;
   @ViewChild('deleteModalTrigger') modalTrigger!: ElementRef;
+  @ViewChild('deleteModalClose') modalClose!: ElementRef;
   // @ViewChild('deleteModal') deleteModal!: ElementRef;
 
   constructor(
@@ -34,7 +35,6 @@ export class DeleteStaff {
   // }
 
   deleteStaff(){
-    console.log('delete called');
     let param = this.activatedRoute.firstChild?.snapshot.paramMap.get('staffId');
     if(param){
       this.staffId = param;
@@ -43,7 +43,9 @@ export class DeleteStaff {
        next: response => {
            this.showLoading = false;
            console.log(response);
-           this.notiService.show(response.statusMessage,'success');
+           this.notiService.show('Successfully deleted', 'success');
+           this.modalClose.nativeElement.click();
+           this.modalTrigger.nativeElement.focus();
           //  this.dialogRef.close({message: 'success'});
        },
        error: response => {

@@ -17,7 +17,6 @@ import { Department } from '../../department/data/department';
 })
 export class AddStaff {
   addStaffForm!: FormGroup;
-  addAccountForm!: FormGroup;
   showLoading: boolean = false;
   hide: boolean = true;
   departments$!: Observable<Department[]>;
@@ -43,11 +42,6 @@ export class AddStaff {
       staffStatus: new FormControl('', [Validators.required]),
     });
 
-    this.addAccountForm = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-    });
-    
     this.departments$ = this._service.getDepartmentOptions();
     this.status$ = this._service.getStatusOptions();
     this.gender$ = this._service.getGenderOptions();
@@ -57,11 +51,11 @@ export class AddStaff {
     this.showLoading = true;
 
     const staffData = this.addStaffForm.getRawValue();
-    const accountData = this.addAccountForm.getRawValue();
-    const data = {...staffData, ...accountData};
-    console.log('final data: ', data);
+    // const accountData = this.addAccountForm.getRawValue();
+    // const data = {...staffData, ...accountData};
+    console.log('final data: ', staffData);
 
-    this._service.add(data).pipe(take(1)).subscribe({
+    this._service.add(staffData).pipe(take(1)).subscribe({
       next: res => {
         this.showLoading = false;
         this.notiSertice.show('Staff added successfully', 'success');
@@ -79,8 +73,5 @@ export class AddStaff {
   resetForm(): void{
     this.addStaffForm.reset();
     this.addStaffForm.markAsPristine();
-
-    this.addAccountForm.reset();
-    this.addAccountForm.markAsPristine();
   }
 }

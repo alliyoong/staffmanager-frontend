@@ -39,21 +39,17 @@ export class Logout {
             //  this.showLoading = false;
             console.log(response);
             //  this.notiService.show(response.statusMessage,'success');
-            //  this.dialogRef.close({message: 'success'});
+            this.authService.clearLocalStorage();
             this.notiService.show('You have been logged out successfully', 'success');
             this.router.navigate(['/']);
             this.modalClose.nativeElement.click();
+            this.modalTrigger.nativeElement.focus();
           },
           error: response => {
             //  this.showLoading = false;
             console.log(response);
             //  this.notiService.show(response.error.statusMessage,'danger');
-          },
-          complete: () => {
-            // this.showLoading = false ;
-            // this.dialogRef.close();
-          }
-        }
+          }        }
       );
     }
   }

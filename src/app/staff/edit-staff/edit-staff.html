@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">Edit Staff</h5>
-        <button type="button" class="btn-close" routerLink="/staff" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" #editModalClose class="btn-close" routerLink="/staff" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
 
@@ -75,24 +75,9 @@
               </select>
             </div>
           </form>
-          <!-- <div class="add-account-header">
-            <h1>Create account information</h1>
-            <p>Please enter the login information for new staff</p>
-          </div>
-
-          <form [formGroup]="editAccountForm">
-            <div class="form-group mb-3">
-              <label class="text-info fw-bold" for="usernameInput">User Name</label>
-              <input type="text" class="form-control" id="usernameInput" formControlName="username">
-            </div>
-            <div class="form-group mb-3">
-              <label class="text-info fw-bold" for="password">Password</label>
-              <input type="password" class="form-control" id="password" formControlName="password">
-            </div>
-          </form> -->
           <div class="modal-footer">
             @if(!showLoading){
-            <button type="button" (click)="editAccount()"
+            <button type="button" (click)="edit()"
               class="btn btn-lg btn-primary">
               Save Changes
             </button>

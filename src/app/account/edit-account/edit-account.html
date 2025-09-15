@@ -1,1 +1,63 @@
-<p>edit-account works!</p>
+<!-- Modal -->
+<button type="button" #editAccountTrigger class="d-none" data-bs-toggle="modal"
+  data-bs-target="#editAccountModal"></button>
+<div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel"
+  data-bs-backdrop="static" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAccountModalLabel">Change Account Information</h5>
+        <button type="button" #editAccountClose class="btn-close" routerLink="/staff" data-bs-dismiss="modal"
+          aria-label="Close">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="edit-account-header">
+            <h1>Change account information</h1>
+            <p>Please enter new information for the account</p>
+          </div>
+          <form [formGroup]="editAccountForm">
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="usernameEditInput">Username</label>
+              <input type="text" class="form-control" id="usernameEditInput" formControlName="username">
+            </div>
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="passwordEditInput">New Password</label>
+              <input type="password" class="form-control" id="passwordEditInput" placeholder="Leave blank to keep the same" formControlName="password">
+            </div>
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="lastLoginDisplayInput">Last Login</label>
+              <input type="text" class="form-control" id="lastLoginDisplayInput" formControlName="lastLoginDateDisplay">
+            </div>
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="createdAtInput">Created At</label>
+              <input type="text" class="form-control" id="createdAtInput" formControlName="createdAt">
+            </div>
+            <div class="form-group mb-3">
+              <label class="text-info fw-bold" for="accountStatusEditInput">Status</label>
+              <select class="form-select" id="accountStatusEditInput" formControlName="accountStatus"
+                aria-label="status select">
+                @for(data of status$ | async; track data){
+                <option value="{{data}}">{{data}}</option>
+                }
+              </select>
+            </div>
+          </form>
+          <div class="modal-footer">
+            @if(!showLoading){
+            <button type="button" (click)="editAccount()" class="btn btn-lg btn-primary">
+              Save changes
+            </button>
+            <button type="button" class="btn btn-secondary" routerLink="/staff" data-bs-dismiss="modal">Cancel</button>
+            }@else {
+            <div class="spinner-border text-primary">
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

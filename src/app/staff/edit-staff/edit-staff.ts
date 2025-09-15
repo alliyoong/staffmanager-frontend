@@ -23,9 +23,9 @@ export class EditStaff implements OnChanges {
   showLoading: boolean = false;
   staffId!: string;
   editStaffForm!: FormGroup;
-  editAccountForm!: FormGroup;
   hide: boolean = true;
   @ViewChild('editModalTrigger') modalTrigger!: ElementRef;
+  @ViewChild('editModalClose') modalClose!: ElementRef;
   @Input('receivedStaff') toEdit!: Staff;
   departments$!: Observable<Department[]>;
   status$!: Observable<string[]>;
@@ -52,22 +52,12 @@ export class EditStaff implements OnChanges {
       departmentId: new FormControl('', [Validators.required]),
       staffStatus: new FormControl('', [Validators.required]),
     });
-
-    this.editAccountForm = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['toEdit']) {
+    if (changes['toEdit'] && changes['toEdit'].currentValue) {
       this.editStaffForm.patchValue(changes['toEdit'].currentValue);
-      this.editStaffForm.get('departmentId')!.setValue(changes['toEdit'].currentValue.department.departmentId);
-      if (changes['toEdit'].currentValue.account) {
-        this.editAccountForm.patchValue(changes['toEdit'].currentValue.account);
-      } else {
-        this.resetForm(this.editAccountForm);
-      }
+      this.editStaffForm.get('departmentId')!.setValue(changes['toEdit'].currentValue.department?.departmentId);
     }
   }
 
@@ -77,26 +67,26 @@ export class EditStaff implements OnChanges {
     this.modalTrigger.nativeElement.click();
   }
 
-  editAccount() {
+  edit() {
     const staffData = this.editStaffForm.getRawValue();
-    const accountData = this.editAccountForm.getRawValue();
-    const data = { ...staffData, ...accountData };
-    console.log('final data: ', data);
+    // const accountData = this.editAccountForm.getRawValue();
+    // const data = { ...staffData, ...accountData };
+    console.log('final data: ', staffData);
 
     let param = this.activatedRoute.firstChild?.snapshot.paramMap.get('staffId');
     if (param) {
       this.staffId = param;
     }
 
-    this.staffService.update(data, this.staffId).subscribe({
+    this.staffService.update(staffData, this.staffId).subscribe({
       next: response => {
         this.showLoading = false;
-        this.notiService.show(response.statusMessage, 'success');
-        //  this.dialogRef.close({message: 'success'});
+        this.notiService.show('Successfully updated', 'success');
+        this.modalClose.nativeElement.click();
       },
       error: response => {
         this.showLoading = false;
-        this.notiService.show(response.statusMessage, 'danger');
+        this.notiService.show(response.error.statusMessage, 'danger');
       },
       complete: () => {
         this.showLoading = false;

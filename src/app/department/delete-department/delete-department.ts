@@ -15,7 +15,7 @@ export class DeleteDepartment {
   showLoading: boolean = false;
   departmentId!: string;
   @ViewChild('deleteModalTrigger') modalTrigger!: ElementRef;
-  // @ViewChild('deleteModal') deleteModal!: ElementRef;
+  @ViewChild('deleteModalClose') modalClose!: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute, 
@@ -43,6 +43,8 @@ export class DeleteDepartment {
            this.showLoading = false;
            console.log(response);
            this.notiService.show(response.statusMessage,'success');
+           this.modalClose.nativeElement.click();
+           this.modalTrigger.nativeElement.focus();
           //  this.dialogRef.close({message: 'success'});
        },
        error: response => {

@@ -33,7 +33,7 @@ export class CheckInOut {
     this.checkInOutService.checkIn(this.currentUser!.staffId).subscribe({
       next: res => {
         console.log(res);
-        this.notiService.show(res.statusMessage, 'success');
+        this.notiService.show('Check in successful', 'success');
       },
       error: res => {
         console.log(res);
@@ -47,7 +47,7 @@ export class CheckInOut {
     this.checkInOutService.checkOut(this.currentUser!.staffId).subscribe({
       next: res => {
         console.log(res);
-        this.notiService.show(res.statusMessage, 'success');
+        this.notiService.show('Check out successful', 'success');
       },
       error: res => {
         console.log(res);

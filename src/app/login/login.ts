@@ -39,6 +39,10 @@ export class Login {
   }
 
   login(): void {
+    // if(this.authService.isLoggedIn()) {
+    //   this.notiService.show('You have to log out first', 'warning');
+    //   return;
+    // }
     this.showLoading = true;
     const data = this.loginForm.getRawValue();
     this.authService.login(data).pipe(take(1)).subscribe({
@@ -58,7 +62,8 @@ export class Login {
         const message = res.error.statusMessage;
         this.notiService.show(message, 'danger');
         this.showLoading = false;
-      }
+      },
+      complete: () => this.showLoading = false
     });
   }
 

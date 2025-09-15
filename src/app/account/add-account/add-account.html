@@ -21,8 +21,16 @@
               <input type="text" class="form-control" id="usernameInput" formControlName="username">
             </div>
             <div class="form-group mb-3">
-              <label class="text-info fw-bold" for="passwordInput">Email</label>
+              <label class="text-info fw-bold" for="passwordInput">Password</label>
               <input type="password" class="form-control" id="passwordInput" formControlName="password">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="accountStatusInput">Status</label>
+                <select class="form-select" id="accountStatusInput" formControlName="accountStatus" aria-label="status select">
+                    @for(data of status$ | async; track data){
+                    <option value="{{data}}">{{data}}</option>
+                    }
+                </select>
             </div>
           </form>
           <div class="modal-footer">

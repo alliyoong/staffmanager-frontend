@@ -27,8 +27,8 @@ export class NavigationBar {
 
   logout(): void {
     if (this.authService.isLoggedIn()) {
-      this.route.navigate(['/logout']);
       this.logoutModal.openModal();
+      this.route.navigate(['/logout']);
     }else {
       this.notiService.show('You haven\'t logged in yet', 'warning');
     }

@@ -94,24 +94,18 @@ export class ListStaff {
   }
   
   openAccount(data: Staff): void {
-    console.log(data);
+    this.selectedStaff = data;
     this._service.checkHasAccount(data.staffId).subscribe({
       next: res => {
-        console.log(res);
+        if(res){
+          this.editAccount.openModal();
+        } else {
+          this.addAccount.openModal();
+        }
       },
       error: res => {
         console.log(res);
-      },
-      complete: () => {
-        console.log('complete');
-      }
-    })
-    if(this._service.checkHasAccount(data.staffId)){
-      console.log('has account');
-    }else{
-      console.log('doesnt have account');
-    }
-    // this._route.navigate(['/staff/account', data.staffId]);
-    // this.editStaff.openModal();
+      }    
+    });
   }
 }

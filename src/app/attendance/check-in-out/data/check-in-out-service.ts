@@ -13,7 +13,6 @@ export class CheckInOutService {
   constructor(private http: HttpClient) { }
   
   checkIn(staffId: number): Observable<AppHttpResponse>{
-    console.log('what the hell: ',staffId);
     return this.http.get<AppHttpResponse>(`${this.baseUrl}/check-in/${staffId}`); 
   }
 
