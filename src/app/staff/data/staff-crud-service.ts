@@ -6,17 +6,30 @@ import { AppHttpResponse } from '../../app-http-response';
 import { Page } from './page';
 import { Department } from '../../department/data/department';
 import { Account } from '../../account/data/account';
+import { JobPosition } from '../../job-position/job-position';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StaffCrudService {
   baseUrl: string = 'http://localhost:8088/api/staff';
+  private status$!: Observable<string[]>;
+  private gender$!: Observable<string[]>;
+  private jobPosition$!: Observable<JobPosition[]>;
+  private departments$!: Observable<Department[]>;
 
   constructor(private http: HttpClient) { }
 
-  getPage(page: number, size: number, search: string): Observable<Page<Staff>> {
-    return this.http.get<AppHttpResponse>(`${this.baseUrl}?page=${page}&size=${size}&search=${search}`)
+  // getPage(page: number, size: number, search: any): Observable<Page<Staff>> {
+  //   return this.http.get<AppHttpResponse>(`${this.baseUrl}?page=${page}&size=${size}&search=${search}`)
+  //   .pipe(
+  //     map(response => response.data),
+  //     shareReplay(1)
+  //   );
+  // }
+
+  getPage(search: any): Observable<Page<Staff>> {
+    return this.http.post<AppHttpResponse>(`${this.baseUrl}/search`, search, {headers: {'Content-Type': 'application/json'}})
     .pipe(
       map(response => response.data),
       shareReplay(1)
@@ -59,24 +72,46 @@ export class StaffCrudService {
   }
 
   getDepartmentOptions(): Observable<Department[]> {
-    return this.http.get<AppHttpResponse>('http://localhost:8088/api/department').pipe(
-        // tap(response => console.log('staff observable ', response)),
-        map(response => response.data),
-        shareReplay(1)
-      );
+    if(!this.departments$){
+      this.departments$ = this.http.get<AppHttpResponse>('http://localhost:8088/api/department').pipe(
+          // tap(response => console.log('staff observable ', response)),
+          map(response => response.data),
+          shareReplay(1)
+        );
+    }
+    return this.departments$;
   }
+
   getGenderOptions(): Observable<string[]> {
-    return this.http.get<AppHttpResponse>('http://localhost:8088/api/staff/gender').pipe(
-        // tap(response => console.log('staff observable ', response)),
-        map(response => response.data),
-        shareReplay(1)
-      );
+    if (!this.gender$) {
+      this.gender$ = this.http.get<AppHttpResponse>(`${this.baseUrl}/gender`).pipe(
+          // tap(response => console.log('staff observable ', response)),
+          map(response => response.data),
+          shareReplay(1)
+        );
+    }
+    return this.gender$;
   }
+
   getStatusOptions(): Observable<string[]> {
-    return this.http.get<AppHttpResponse>('http://localhost:8088/api/staff/status').pipe(
-        // tap(response => console.log('staff observable ', response)),
-        map(response => response.data),
-        shareReplay(1)
-      );
+    if (!this.status$) {
+      this.status$ = this.http.get<AppHttpResponse>(`${this.baseUrl}/status`).pipe(
+          // tap(response => console.log('staff observable ', response)),
+          map(response => response.data),
+          shareReplay(1)
+        );
+    }
+    return this.status$;
+  }
+
+  getJobPositionOptions(): Observable<JobPosition[]> {
+    if (!this.jobPosition$) {
+      this.jobPosition$ = this.http.get<AppHttpResponse>(`${this.baseUrl}/job-position`).pipe(
+          // tap(response => console.log('staff observable ', response)),
+          map(response => response.data),
+          shareReplay(1)
+        );
+    }
+    return this.jobPosition$;
   }
 }

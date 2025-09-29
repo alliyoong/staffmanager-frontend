@@ -5,6 +5,7 @@ import { StaffCrudService } from '../data/staff-crud-service';
 import { NotificationService } from '../../notification/notification-service';
 import { Observable, take } from 'rxjs';
 import { Department } from '../../department/data/department';
+import { JobPosition } from '../../job-position/job-position';
 
 @Component({
   selector: 'app-add-staff',
@@ -22,6 +23,7 @@ export class AddStaff {
   departments$!: Observable<Department[]>;
   status$!: Observable<string[]>;
   gender$!: Observable<string[]>;
+  jobPosition$!: Observable<JobPosition[]>;
 
   constructor(
     private _service: StaffCrudService, 
@@ -39,12 +41,14 @@ export class AddStaff {
       dateOfBirth: new FormControl('', [Validators.required]),
       joinDate: new FormControl('', [Validators.required]),
       departmentId: new FormControl('', [Validators.required]),
+      jobPositionId: new FormControl('', [Validators.required]),
       staffStatus: new FormControl('', [Validators.required]),
     });
 
     this.departments$ = this._service.getDepartmentOptions();
     this.status$ = this._service.getStatusOptions();
     this.gender$ = this._service.getGenderOptions();
+    this.jobPosition$ = this._service.getJobPositionOptions();
   }
 
   add(){

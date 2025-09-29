@@ -15,6 +15,7 @@ import { Logout } from './logout/logout';
 import { Home } from './home/home';
 import { authenticationGuard } from './guard/authentication-guard';
 import { DayOffRequest } from './attendance/day-off-request/day-off-request';
+import { EditAccount } from './account/edit-account/edit-account';
 
 export const routes: Routes = [
 //   { path: 'register', component: RegisterComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'login', component: Login },
   { path: 'logout', component: Logout },
+  { path: 'account/:accountId', component: EditAccount, outlet: 'modal' },
   { path: 'attendance', component: CheckInOut, canActivate: [authenticationGuard] },
   { path: 'day-off-request', component: DayOffRequest, canActivate: [authenticationGuard] },
   {

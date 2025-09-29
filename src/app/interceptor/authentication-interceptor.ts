@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterce
 import { AuthenticationService } from '../login/authentication-service';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, tap, throwError } from 'rxjs';
+import { NotificationService } from '../notification/notification-service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -9,11 +11,15 @@ export class AuthInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private baseUrl = '';
 
-  constructor(private authService: AuthenticationService) {
+  constructor(
+    private authService: AuthenticationService,
+    private notiService: NotificationService,
+    private router: Router
+  ) {
     this.baseUrl = authService.baseUrl;
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler){
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     if (req.url.includes(`${this.baseUrl}/login`)) {
       return next.handle(req);
     }
@@ -46,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
   }
 
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler){
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -62,7 +68,10 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError((err) => {
           this.isRefreshing = false;
           // If refresh fails, logout the user
-          // this.authService.logOut();
+          this.authService.logOut();
+          this.authService.clearLocalStorage();
+          this.notiService.show('You have to re-login', 'warning');
+          this.router.navigate(['/']);
           return throwError(() => err);
         })
       );

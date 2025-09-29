@@ -61,6 +61,16 @@
                 </select>
             </div>
             <div class="form-group mb-3">
+                <label class="text-info fw-bold" for="jobPositionInput">Job Position</label>
+                <select class="form-select" id="jobPositionInput" formControlName="jobPositionId"
+                    aria-label="job position select">
+                    @for(data of jobPosition$ | async; track data){
+                    <option value="{{data.jobPositionId}}">{{data.jobPositionName}}</option>
+                    }
+
+                </select>
+            </div>
+            <div class="form-group mb-3">
                 <label class="text-info fw-bold" for="statusInput">Status</label>
                 <select class="form-select" id="statusInput" formControlName="staffStatus" aria-label="status select">
                     @for(data of status$ | async; track data){

@@ -11,8 +11,8 @@ import { Account } from '../data/account';
   selector: 'app-edit-account',
   imports: [
     ReactiveFormsModule,
-    CommonModule
-  ],
+    CommonModule,
+],
   templateUrl: './edit-account.html',
   styleUrl: './edit-account.css'
 })
@@ -30,8 +30,8 @@ export class EditAccount {
     private formBuilder: FormBuilder,
     private service: AccountCrudService,
     private notiService: NotificationService
-  ){
-    
+  ) {
+
     this.editAccountForm = this.formBuilder.group({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -46,26 +46,27 @@ export class EditAccount {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['target'] && changes['target'].currentValue) {
       this.toEdit = changes['target'].currentValue.account;
-      console.log(this.toEdit);
-      this.editAccountForm.patchValue({
-        username: this.toEdit.username,
-        accountStatus: this.toEdit.accountStatus,
-        lastLoginDateDisplay: this.toEdit.lastLoginDateDisplay, 
-        createdAt: this.toEdit.createdAt
-      });
+      if (this.toEdit) {
+        this.editAccountForm.patchValue({
+          username: this.toEdit.username,
+          accountStatus: this.toEdit.accountStatus,
+          lastLoginDateDisplay: this.toEdit.lastLoginDateDisplay,
+          createdAt: this.toEdit.createdAt
+        });
+      }
     } else {
       this.resetForm();
     }
   }
-  
-  ngOnInit(): void {}
 
-  editAccount(){
+  ngOnInit(): void { }
+
+  editAccount() {
     this.showLoading = true;
     const accountData = this.editAccountForm.getRawValue();
-    if(!this.editAccountForm.get('password')!.value){
+    if (!this.editAccountForm.get('password')!.value) {
       accountData.password = this.toEdit.password;
-    } else {}
+    } else { }
     console.log('final data: ', accountData);
     this.service.update(accountData, this.toEdit.accountId).subscribe({
       next: res => {
@@ -91,7 +92,7 @@ export class EditAccount {
     this.modalTrigger.nativeElement.click();
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.editAccountForm.reset();
     this.editAccountForm.markAsPristine();
   }

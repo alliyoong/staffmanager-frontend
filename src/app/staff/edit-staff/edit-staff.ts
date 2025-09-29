@@ -8,6 +8,7 @@ import { Account } from '../../account/data/account';
 import { StaffCrudService } from '../data/staff-crud-service';
 import { Observable } from 'rxjs';
 import { Department } from '../../department/data/department';
+import { JobPosition } from '../../job-position/job-position';
 
 @Component({
   selector: 'app-edit-staff',
@@ -28,6 +29,7 @@ export class EditStaff implements OnChanges {
   @ViewChild('editModalClose') modalClose!: ElementRef;
   @Input('receivedStaff') toEdit!: Staff;
   departments$!: Observable<Department[]>;
+  jobPosition$!: Observable<JobPosition[]>;
   status$!: Observable<string[]>;
   gender$!: Observable<string[]>;
 
@@ -40,6 +42,7 @@ export class EditStaff implements OnChanges {
     this.departments$ = this.staffService.getDepartmentOptions();
     this.status$ = this.staffService.getStatusOptions();
     this.gender$ = this.staffService.getGenderOptions();
+    this.jobPosition$ = this.staffService.getJobPositionOptions();
 
     this.editStaffForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
@@ -50,6 +53,7 @@ export class EditStaff implements OnChanges {
       dateOfBirth: new FormControl('', [Validators.required]),
       joinDate: new FormControl('', [Validators.required]),
       departmentId: new FormControl('', [Validators.required]),
+      jobPositionId: new FormControl('', [Validators.required]),
       staffStatus: new FormControl('', [Validators.required]),
     });
   }
@@ -58,6 +62,7 @@ export class EditStaff implements OnChanges {
     if (changes['toEdit'] && changes['toEdit'].currentValue) {
       this.editStaffForm.patchValue(changes['toEdit'].currentValue);
       this.editStaffForm.get('departmentId')!.setValue(changes['toEdit'].currentValue.department?.departmentId);
+      this.editStaffForm.get('jobPositionId')!.setValue(changes['toEdit'].currentValue.jobPosition?.jobPositionId);
     }
   }
 

@@ -21,6 +21,7 @@ export class AddAccount {
   hide: boolean = true;
   status$!: Observable<string[]>;
   @ViewChild('addAccountTrigger') modalTrigger!: ElementRef;
+  @ViewChild('addAccountClose') modalClose!: ElementRef;
   @Input('receivedStaff') targetStaff!: Staff;
 
   constructor(
@@ -55,6 +56,7 @@ export class AddAccount {
         this.showLoading = false;
         this.notiService.show('Account added successfully', 'success');
         this.resetForm();
+        this.modalClose.nativeElement.click();
       },
       error: res => {
         this.showLoading = false;

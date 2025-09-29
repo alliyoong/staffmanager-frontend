@@ -1,4 +1,36 @@
 <div class="container p-50 m-50">
+  <form #searchForm="ngForm" (ngSubmit)="applyFilter(searchForm.value)">
+    <div class="row g-3 p-3">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="fromDateSearch" class="text-info fw-bold">From</label>
+          <div class="col-5">
+            <div class="input-group date" id="datepicker">
+              <input ngModel type="date" name="fromDate" class="form-control" id="fromDateSearch" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="toDateSearch" class="text-info fw-bold">To</label>
+          <div class="col-5">
+            <div class="input-group date" id="datepicker">
+              <input ngModel type="date" name="toDate" class="form-control" id="toDateSearch" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="mt-2">
+          <button class="btn btn-lg btn-outline-success" type="submit">Filter</button>
+        </div>
+        <div class="mt-2">
+          <button class="btn btn-lg btn-outline-info" type="button" (click)="clearFilter(searchForm)">Clear</button>
+        </div>
+      </div>
+    </div>
+  </form>
   @if(attendance$ | async; as data){
   <table class="table table-striped table-bordered">
     <thead class="thead-light">

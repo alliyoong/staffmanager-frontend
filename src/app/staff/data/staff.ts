@@ -1,5 +1,6 @@
 import { Account } from "../../account/data/account";
 import { Department } from "../../department/data/department";
+import { JobPosition } from "../../job-position/job-position";
 
 export interface Staff {
     staffId: number;
@@ -13,4 +14,5 @@ export interface Staff {
     dateOfBirth: Date;
     joinDate: Date;
     staffStatus: string;
+    jobPosition: JobPosition;
 }
