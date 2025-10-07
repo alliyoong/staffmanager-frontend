@@ -8,7 +8,7 @@ import { Account } from './account';
   providedIn: 'root'
 })
 export class AccountCrudService {
-  baseUrl: string = 'http://localhost:8088/api/account';
+  baseUrl: string = 'http://account.localhost:8080/api/account';
 
   constructor(private http: HttpClient) { }
 

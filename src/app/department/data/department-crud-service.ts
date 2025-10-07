@@ -9,7 +9,7 @@ import { Department } from './department';
   providedIn: 'root'
 })
 export class DepartmentCrudService {
-  baseUrl: string = 'http://localhost:8088/api/department';
+  baseUrl: string = 'http://department.localhost:8080/api/department';
   
   constructor(private http: HttpClient) { }
 

@@ -10,7 +10,7 @@ import { Staff } from '../staff/data/staff';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseUrl: string = 'http://localhost:8088/api/auth';
+  baseUrl: string = 'http://auth.localhost:8080/api/auth';
   private loggedInUsername!: string | null;
   private accessToken!: string | null;
   private currentAccount!: Staff | null;
@@ -18,8 +18,8 @@ export class AuthenticationService {
   
   login(data: Account): Observable<any>{
     return this.http.post<AppHttpResponse>(`${this.baseUrl}/login`, data, {
-      withCredentials: true,
-      observe: 'response'
+      observe: 'response',
+      withCredentials: true
     });
   }
 

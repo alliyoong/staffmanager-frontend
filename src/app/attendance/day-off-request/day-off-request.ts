@@ -43,7 +43,7 @@ export class DayOffRequest {
     if(this.currentUser){
       this.addDayOffRequestForm.get('staffId')!.setValue(this.currentUser.staffId);
       this.addDayOffRequestForm.get('name')!.setValue(this.currentUser.name);
-      this.addDayOffRequestForm.get('department')!.setValue(this.currentUser.department.departmentName);
+      this.addDayOffRequestForm.get('department')!.setValue(this.currentUser.departmentDto.departmentName);
     }
    }
 

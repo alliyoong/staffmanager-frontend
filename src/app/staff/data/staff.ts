@@ -4,7 +4,7 @@ import { JobPosition } from "../../job-position/job-position";
 
 export interface Staff {
     staffId: number;
-    department: Department;
+    departmentDto: Department;
     account: Account;
     name: string;
     email: string;

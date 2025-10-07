@@ -82,6 +82,7 @@ export class ListStaff {
     searchCriteria = JSON.stringify(searchCriteria);
     this.staffList$ = this._service.getPage(searchCriteria)
       .pipe(
+        // tap(data => console.log(data)),
         catchError(err => {
           this._notiService.show(err.error.text, 'danger');
           throw err;
@@ -136,7 +137,6 @@ export class ListStaff {
   
   openAttendance(data: Staff): void {
     this.selectedStaff = data;
-    console.log(data);
     console.log(this.selectedStaff);
     // this._route.navigate(['/attendance', data.staffId]);
   }

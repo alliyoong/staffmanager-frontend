@@ -8,7 +8,7 @@ import { Attendance } from './attendance';
   providedIn: 'root'
 })
 export class CheckInOutService {
-  baseUrl: string = 'http://localhost:8088/api/attendance';
+  baseUrl: string = 'http://attendance.localhost:8080/api/attendance';
 
   constructor(private http: HttpClient) { }
 

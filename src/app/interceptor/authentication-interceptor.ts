@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AuthenticationService } from '../login/authentication-service';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, tap, throwError } from 'rxjs';
@@ -34,6 +34,14 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
+      // tap((event) => {
+      //   if (event instanceof HttpResponse) {
+      //     console.log('running here');
+      //     console.groupCollapsed(`[Interceptor] Response for: ${req.url}`);
+      //     console.log('--- RAW HTTPRESPONSE (as seen by Angular) ---');
+      //     console.log(event);
+      //   }
+      // }),
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(req, next);

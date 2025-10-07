@@ -88,7 +88,7 @@
         <td>{{data.gender}}</td>
         <td>{{data.dateOfBirth}}</td>
         <td>{{data.joinDate}}</td>
-        <td>{{data.department.departmentName}}</td>
+        <td>{{data.departmentDto.departmentName}}</td>
         <td>{{data.jobPosition.jobPositionName}}</td>
         <td>{{data.staffStatus}}</td>
         <td>
@@ -140,5 +140,5 @@
 <app-edit-staff [receivedStaff]=selectedStaff></app-edit-staff>
 <app-add-account [receivedStaff]=selectedStaff></app-add-account>
 <app-edit-account [receivedStaff]=selectedStaff></app-edit-account>
-<app-attendance-list></app-attendance-list>
+<!-- <app-attendance-list></app-attendance-list> -->
 <!-- <app-attendance-list [receivedStaff]=selectedStaff></app-attendance-list> -->

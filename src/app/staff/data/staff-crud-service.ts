@@ -12,7 +12,7 @@ import { JobPosition } from '../../job-position/job-position';
   providedIn: 'root'
 })
 export class StaffCrudService {
-  baseUrl: string = 'http://localhost:8088/api/staff';
+  baseUrl: string = 'http://staff.localhost:8080/api/staff';
   private status$!: Observable<string[]>;
   private gender$!: Observable<string[]>;
   private jobPosition$!: Observable<JobPosition[]>;
@@ -64,7 +64,7 @@ export class StaffCrudService {
   }
   
   checkHasAccount(staffId: number): Observable<Account>{
-    return this.http.get<AppHttpResponse>(`http://localhost:8088/api/account/check-has-account/${staffId}`)
+    return this.http.get<AppHttpResponse>(`http://account.localhost:8080/api/account/check-has-account/${staffId}`)
     .pipe(
         // tap(response => console.log('check if has account observable ', response)),
         map(response => response.data)
@@ -73,7 +73,7 @@ export class StaffCrudService {
 
   getDepartmentOptions(): Observable<Department[]> {
     if(!this.departments$){
-      this.departments$ = this.http.get<AppHttpResponse>('http://localhost:8088/api/department').pipe(
+      this.departments$ = this.http.get<AppHttpResponse>('http://department.localhost:8080/api/department').pipe(
           // tap(response => console.log('staff observable ', response)),
           map(response => response.data),
           shareReplay(1)
@@ -113,5 +113,13 @@ export class StaffCrudService {
         );
     }
     return this.jobPosition$;
+  }
+  
+  getUserProfile(): Observable<Staff> {
+    return this.http.get<AppHttpResponse>(`${this.baseUrl}/me`)
+    .pipe(
+        tap(response => console.log('get user profile observable ', response)),
+        map(response => response.data)
+    );
   }
 }
