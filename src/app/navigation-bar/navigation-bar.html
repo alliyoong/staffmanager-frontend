@@ -12,22 +12,23 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <!-- <a class="nav-link active" aria-current="page" routerLink="staff">Staff</a> -->
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Staff</a>
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Staff</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" aria-current="page" routerLink="staff">List</a></li>
                         <li><a class="dropdown-item" aria-current="page" routerLink="staff/add">Add</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Department</a>
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Department</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" aria-current="page" routerLink="department">List</a></li>
                         <li><a class="dropdown-item" aria-current="page" routerLink="department/add">Add</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Attendance
                     </a>
                     <ul class="dropdown-menu">
@@ -38,8 +39,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Account
                     </a>
                     <ul class="dropdown-menu">
@@ -51,17 +51,31 @@
                         <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <ul class="">
+                        @if (isAuthenticated) {
+                        <p class="text-dark">Hi {{ username }}</p>
+                        <a (click)="logout()"
+                            class="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Logout
+                        </a>
+                        } @else {
+                        <a (click)="login()"
+                            class="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Login
+                        </a>
+                        }
+                    </ul>
+                </li>
                 <!-- <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li> -->
             </ul>
             <form class="d-flex" role="search" onsubmit="return false;">
-                <input class="form-control me-2" 
-                type="search" 
-                placeholder="Search" aria-label="Search" 
-                (keyup.enter)="onSearch(searchInput.value)" 
-                #searchInput/>
-                <button class="btn btn-outline-success" type="button" (click)="onSearch(searchInput.value)">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                    (keyup.enter)="onSearch(searchInput.value)" #searchInput />
+                <button class="btn btn-outline-success" type="button"
+                    (click)="onSearch(searchInput.value)">Search</button>
             </form>
         </div>
     </div>
