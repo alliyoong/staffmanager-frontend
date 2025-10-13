@@ -14,6 +14,7 @@ import { EditAccount } from '../../account/edit-account/edit-account';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Department } from '../../department/data/department';
 import { AttendanceList } from '../../attendance/attendance-list/attendance-list';
+import { Account } from '../../account/data/account';
 
 @Component({
   selector: 'app-list-staff',
@@ -35,6 +36,8 @@ export class ListStaff {
   @ViewChild(AddAccount) addAccount!: AddAccount;
   @ViewChild(EditAccount) editAccount!: EditAccount;
   selectedStaff!: Staff;
+  // selectedAccount: Account | null = null;
+  selectedAccount = signal<Account | null>(null);
   staffList$: Observable<Page<Staff>> = new Observable<Page<Staff>>();
   departmentOption$!: Observable<Department[]>;
   statusOption$!: Observable<string[]>;
@@ -120,11 +123,11 @@ export class ListStaff {
     this._service.checkHasAccount(data.staffId).subscribe({
       next: res => {
         if(res){
-          this._route.navigate([
-            {outlets:{modal:['account', data.account.accountId]}}
-          ]);
+          // this._route.navigate([
+          //   {outlets:{modal:['account', data.account.userId]}}
+          // ]);
+          this.selectedAccount.set({ ... res}) ;
           this.editAccount.openModal();
-          console.log(this._route.url);
         } else {
           this.addAccount.openModal();
         }

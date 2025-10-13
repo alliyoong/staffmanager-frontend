@@ -10,7 +10,7 @@ export const authConfig: PassedInitialConfig = {
         scope: "openid profile offline_access",
         silentRenew: true,
         useRefreshToken: true,
-        renewTimeBeforeTokenExpiresInSeconds: 20,
+        renewTimeBeforeTokenExpiresInSeconds: 30,
         customParamsAuthRequest: {
             prompt: "login"
         }

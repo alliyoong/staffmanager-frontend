@@ -66,7 +66,6 @@ export class AddAccount {
       complete: () => this.showLoading = false
     });
 
-    this.showLoading = false;
   }
 
   openModal(): void {

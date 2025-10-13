@@ -11,7 +11,6 @@ export class KeycloakAuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     this.authService.getAccessToken().subscribe(token => {
-        console.log('Interceptor - token:', token);
         if (token) {
             let header = `Bearer ${token}`;
             let headers = req.headers.set('Authorization', header);

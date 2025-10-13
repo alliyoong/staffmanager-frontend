@@ -16,7 +16,7 @@ export class AccountCrudService {
     return this.http.post<AppHttpResponse>(this.baseUrl, data);
   }
 
-  update(data: any, id: number): Observable<AppHttpResponse> {
+  update(data: any, id: string): Observable<AppHttpResponse> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.put<AppHttpResponse>(url, data);
   }

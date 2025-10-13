@@ -1,9 +1,11 @@
 export interface Account {
-    accountId: number;
+    userId: string;
     username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
     password: string;
     accountStatus: string;
     createdAt: Date;
-    lastLoginDateDisplay: Date;
-    staffId: number;
+
 }
