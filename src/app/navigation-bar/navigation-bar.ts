@@ -36,7 +36,9 @@ export class NavigationBar implements OnInit {
     )
     this.authService.userData$.subscribe(
       ({userData}) => {
-        this.username = userData.preferred_username;
+        if (userData) {
+          this.username = userData.preferred_username;
+        }
       }
     )
   }
